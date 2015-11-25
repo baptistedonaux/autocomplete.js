@@ -285,11 +285,11 @@ var AutoComplete = (function () {
         return request;
     }
 
-    function closeBox(result, closeNow) {
+    function closeBox(result, event, closeNow) {
         if (closeNow) {
             attrClass(result, "autocomplete");
         } else {
-            setTimeout(function() {closeBox(result, true);}, 150);
+            setTimeout(function() {closeBox(result, event, true);}, 150);
         }
     }
 
