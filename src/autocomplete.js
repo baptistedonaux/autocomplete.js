@@ -82,7 +82,7 @@ var AutoComplete = (function () {
                             }
 
                             if (result.hasChildNodes()) {
-                                result.childNodes[0].remove();
+                                result.removeChild(result.childNodes[0]);
                             }
                             
                             result.appendChild(ul);
