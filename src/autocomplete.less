@@ -20,7 +20,7 @@ input[data-autocomplete] {
     transition-property: all;
     transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 
-    &:active, &:focus, &:hover {
+    &:active, &:focus {
       background-color: @background_color;
       transition: @result_transition;
     }
@@ -38,7 +38,7 @@ input[data-autocomplete] {
             cursor: pointer;
             padding: 5px 0 5px 10px;
 
-            &.active, &:active, &:focus, &:hover {
+            &.active, &:active, &:focus {
                 background-color: @item_active_color;
                 transition: @result_transition;
 

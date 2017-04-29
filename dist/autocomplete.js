@@ -403,6 +403,15 @@ AutoComplete.defaults = {
                 li.onclick = function () {
                     params._Select(li);
                 };
+                li.onmouseenter = function () {
+                    var active = params.DOMResults.querySelector("li.active");
+                    if (active !== li) {
+                        if (active !== null) {
+                            active.classList.remove("active");
+                        }
+                        li.classList.add("active");
+                    }
+                };
             }
         });
     },

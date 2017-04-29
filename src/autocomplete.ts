@@ -211,7 +211,7 @@ class AutoComplete {
                 Callback: function() {
                     var oldValue = this.Input.getAttribute("data-autocomplete-old-value"),
                         currentValue = this._Pre();
-    
+
                     if (currentValue !== "" && currentValue.length >= this._MinChars()) {
                         if (!oldValue || currentValue != oldValue) {
                             this.DOMResults.setAttribute("class", "autocomplete open");
@@ -275,7 +275,7 @@ class AutoComplete {
                 return this.MinChars;
             }
 
-            return parseInt(minchars, 10);  
+            return parseInt(minchars, 10);
         },
 
         /**
@@ -362,6 +362,15 @@ class AutoComplete {
                 if (li.getAttribute("class") != "locked") {
                     li.onclick = function() {
                         params._Select(li);
+                    };
+                    li.onmouseenter = function() {
+                        var active = params.DOMResults.querySelector("li.active");
+                        if (active !== li) {
+                          if (active !== null) {
+                            active.classList.remove("active");
+                          }
+                          li.classList.add("active");
+                        }
                     };
                 }
             });

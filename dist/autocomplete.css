@@ -16,8 +16,7 @@ input[data-autocomplete] {
   transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
 }
 .autocomplete:active,
-.autocomplete:focus,
-.autocomplete:hover {
+.autocomplete:focus {
   background-color: #FAFAFA;
   transition: all 0.5s ease 0s;
 }
@@ -35,23 +34,19 @@ input[data-autocomplete] {
 }
 .autocomplete > ul > li.active,
 .autocomplete > ul > li:active,
-.autocomplete > ul > li:focus,
-.autocomplete > ul > li:hover {
+.autocomplete > ul > li:focus {
   background-color: #EEEEEE;
   transition: all 0.5s ease 0s;
 }
 .autocomplete > ul > li.active a:active,
 .autocomplete > ul > li:active a:active,
 .autocomplete > ul > li:focus a:active,
-.autocomplete > ul > li:hover a:active,
 .autocomplete > ul > li.active a:focus,
 .autocomplete > ul > li:active a:focus,
 .autocomplete > ul > li:focus a:focus,
-.autocomplete > ul > li:hover a:focus,
 .autocomplete > ul > li.active a:hover,
 .autocomplete > ul > li:active a:hover,
-.autocomplete > ul > li:focus a:hover,
-.autocomplete > ul > li:hover a:hover {
+.autocomplete > ul > li:focus a:hover {
   text-decoration: none;
 }
 .autocomplete > ul > li.locked {
