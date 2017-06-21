@@ -182,10 +182,13 @@ class AutoComplete {
                             position = currentIndex + (event.keyCode - 39),
                             lisCount = this.DOMResults.getElementsByTagName("li").length;
 
-                        if (position < 0) {
-                            position = lisCount - 1;
-                        } else if (position >= lisCount) {
-                            position = 0;
+                        if (position < 0 || position >= lisCount) {
+                            active.classList.remove("active");
+                            active = null;
+                        }
+                        if (active) {
+                            active.classList.remove("active");
+                            active.parentElement.children.item(position).classList.add("active");
                         }
 
                         active.classList.remove("active");
