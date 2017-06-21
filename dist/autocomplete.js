@@ -247,11 +247,13 @@ AutoComplete.defaults = {
                 var first = this.DOMResults.querySelector("li:first-child:not(.locked)"), last = this.DOMResults.querySelector("li:last-child:not(.locked)"), active = this.DOMResults.querySelector("li.active");
                 if (active) {
                     var currentIndex = Array.prototype.indexOf.call(active.parentNode.children, active), position = currentIndex + (event.keyCode - 39), lisCount = this.DOMResults.getElementsByTagName("li").length;
-                    if (position < 0) {
-                        position = lisCount - 1;
+                    if (position < 0 || position >= lisCount) {
+                        active.classList.remove("active");
+                        active = null;
                     }
-                    else if (position >= lisCount) {
-                        position = 0;
+                    if (active) {
+                        active.classList.remove("active");
+                        active.parentElement.children.item(position).classList.add("active");
                     }
                     active.classList.remove("active");
                     active.parentElement.children.item(position).classList.add("active");
