@@ -2,7 +2,7 @@
 /*
  * @license MIT
  *
- * Autocomplete.js v2.7.1
+ * Autocomplete.js v2.7.2
  * Developed by Baptiste Donaux
  * http://autocomplete-js.com
  *
@@ -182,6 +182,7 @@ var AutoComplete = /** @class */ (function () {
         return merge;
     };
     AutoComplete.defaults = {
+        Classname: "autocomplete",
         Delay: 150,
         EmptyMessage: "No result here",
         Highlight: {
@@ -210,9 +211,10 @@ var AutoComplete = /** @class */ (function () {
                     if (this.DOMResults.getAttribute("class").indexOf("open") != -1) {
                         var liActive = this.DOMResults.querySelector("li.active");
                         if (liActive !== null) {
+                            var params = this;
                             event.preventDefault();
                             this._Select(liActive);
-                            this.DOMResults.setAttribute("class", "autocomplete");
+                            this.DOMResults.setAttribute("class", params.Classname);
                         }
                     }
                 },
@@ -277,10 +279,11 @@ var AutoComplete = /** @class */ (function () {
                         Not: true
                     }],
                 Callback: function () {
+                    var params = this;
                     var oldValue = this.Input.getAttribute("data-autocomplete-old-value"), currentValue = this._Pre();
                     if (currentValue !== "" && currentValue.length >= this._MinChars()) {
                         if (!oldValue || currentValue != oldValue) {
-                            this.DOMResults.setAttribute("class", "autocomplete open");
+                            this.DOMResults.setAttribute("class", params.Classname + " open");
                         }
                         AutoComplete.prototype.cache(this, function (response) {
                             this._Render(this._Post(response));
@@ -392,9 +395,10 @@ var AutoComplete = /** @class */ (function () {
          * Manage the open
          */
         _Focus: function () {
+            var params = this;
             var oldValue = this.Input.getAttribute("data-autocomplete-old-value");
             if ((!oldValue || this.Input.value != oldValue) && this._MinChars() <= this.Input.value.length) {
-                this.DOMResults.setAttribute("class", "autocomplete open");
+                this.DOMResults.setAttribute("class", params.Classname + " open");
             }
         },
         /**
@@ -411,13 +415,15 @@ var AutoComplete = /** @class */ (function () {
             });
         },
         _Close: function () {
-            this.DOMResults.setAttribute("class", "autocomplete");
+            var params = this;
+            this.DOMResults.setAttribute("class", params.Classname);
         },
         /**
          * Position the results HTML element
          */
         _Position: function () {
-            this.DOMResults.setAttribute("class", "autocomplete");
+            var params = this;
+            this.DOMResults.setAttribute("class", params.Classname);
             this.DOMResults.setAttribute("style", "top:" + (this.Input.offsetTop + this.Input.offsetHeight) + "px;left:" + this.Input.offsetLeft + "px;width:" + this.Input.clientWidth + "px;");
         },
         /**

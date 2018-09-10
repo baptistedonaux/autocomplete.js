@@ -1,7 +1,7 @@
 /*
  * @license MIT
  *
- * Autocomplete.js v2.7.1
+ * Autocomplete.js v2.7.2
  * Developed by Baptiste Donaux
  * http://autocomplete-js.com
  *
@@ -11,6 +11,7 @@
 
 interface Params {
     // Custom params
+    Classname:            string;
     Delay:                number;
     EmptyMessage:         string;
     Highlight:            Object;
@@ -108,6 +109,7 @@ class AutoComplete {
         return merge;
     };
     static defaults: Params = {
+        Classname: "autocomplete",
         Delay: 150,
         EmptyMessage: "No result here",
         Highlight: {
@@ -138,9 +140,10 @@ class AutoComplete {
                         var liActive = this.DOMResults.querySelector("li.active");
 
                         if (liActive !== null) {
+                            var params = this;
                             event.preventDefault();
                             this._Select(liActive);
-                            this.DOMResults.setAttribute("class", "autocomplete");
+                            this.DOMResults.setAttribute("class", params.Classname);
                         }
                     }
                 },
@@ -210,12 +213,13 @@ class AutoComplete {
                     Not: true
                 }],
                 Callback: function() {
+                    var params = this;
                     var oldValue = this.Input.getAttribute("data-autocomplete-old-value"),
                         currentValue = this._Pre();
 
                     if (currentValue !== "" && currentValue.length >= this._MinChars()) {
                         if (!oldValue || currentValue != oldValue) {
-                            this.DOMResults.setAttribute("class", "autocomplete open");
+                            this.DOMResults.setAttribute("class", `${params.Classname} open`);
                         }
 
                         AutoComplete.prototype.cache(
@@ -350,10 +354,11 @@ class AutoComplete {
          * Manage the open
          */
         _Focus: function(): void {
+            var params = this;
             var oldValue: string = this.Input.getAttribute("data-autocomplete-old-value");
 
             if ((!oldValue || this.Input.value != oldValue) && this._MinChars() <= this.Input.value.length){
-                this.DOMResults.setAttribute("class", "autocomplete open");
+                this.DOMResults.setAttribute("class", `${params.Classname} open`);
             }
         },
 
@@ -372,14 +377,16 @@ class AutoComplete {
         },
 
         _Close: function(): void {
-          this.DOMResults.setAttribute("class", "autocomplete");
+          var params = this;
+          this.DOMResults.setAttribute("class", params.Classname);
         },
 
         /**
          * Position the results HTML element
          */
         _Position:function(): void {
-            this.DOMResults.setAttribute("class", "autocomplete");
+            var params = this;
+            this.DOMResults.setAttribute("class", params.Classname);
             this.DOMResults.setAttribute("style", "top:" + (this.Input.offsetTop + this.Input.offsetHeight) + "px;left:" + this.Input.offsetLeft + "px;width:" + this.Input.clientWidth + "px;");
         },
 
