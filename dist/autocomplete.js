@@ -153,7 +153,22 @@ var AutoComplete = /** @class */ (function () {
                 params.Request.abort();
             }
             params.Request = request;
-            params.Request.send(params._QueryArg() + "=" + params._Pre());
+            var contentTypeHeader;
+            for (var k in params.HttpHeaders) {
+                if (k.match(/^content-type$/i)) {
+                    contentTypeHeader = params.HttpHeaders[k];
+                    break;
+                }
+            }
+            if (params.HttpMethod.match(/^POST$/i) && contentTypeHeader.match(/^application\/json$/i)) {
+                var body = {};
+                body[params._QueryArg()] = params._Pre();
+                var jsonBody = JSON.stringify(body);
+                params.Request.send(jsonBody);
+            }
+            else {
+                params.Request.send(params._QueryArg() + '=' + params._Pre());
+            }
         }
     };
     AutoComplete.prototype.cache = function (params, callback, callbackErr) {
